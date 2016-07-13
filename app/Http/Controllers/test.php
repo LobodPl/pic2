@@ -25,16 +25,28 @@ class Test extends Controller
     /* This is the correct way to loop over the directory. */
         while (false !== ($entry = readdir($handle))) {
             if (($entry !== ".")&&($entry !== "..")){
-                array_push($obr, "./pic/".$entry);
-                array_push($naz, $entry);
-                array_push($wie, filesize("./pic/".$entry));
-                $ilosc++;
+                if ($szukaj=="")
+                {
+                    array_push($obr, "./pic/".$entry);
+                    array_push($naz, $entry);
+                    array_push($wie, filesize("./pic/".$entry));
+                    $ilosc++;
+                }
+                else
+                {
+                    if($entry == $szukaj){
+                        array_push($obr, "./pic/".$entry);
+                        array_push($naz, $entry);
+                        array_push($wie, filesize("./pic/".$entry));
+                        $ilosc++;
+                    }
+                }
             }
         }
 
         closedir($handle);
     }
-    return view('page',array('obr' =>$obr,'ilosc' =>$ilosc,'name' => $naz,'wielkosc' => $wie, 'query_string' => $szukaj ));
+    return view('page',array('obr' => $obr,'ilosc' => $ilosc,'name' => $naz,'wielkosc' => $wie, 'query_string' => $szukaj ));
 }
 
     /**
