@@ -1,0 +1,22 @@
+{
+  "name": "Pic",
+  "homepage": "https://github.com/LobodPl/Picture",
+  "authors": [
+    "Damian Łoboda <konta.lobod@o2.pl>"
+  ],
+  "description": "Obrazki",
+  "main": "index.php",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lightbox2": "^2.8.2",
+    "jquery": "^3.1.0",
+    "bootstrap": "^3.3.6"
+  }
+}
