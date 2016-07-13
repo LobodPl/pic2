@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Routing\Controller;
 
 class Test extends Controller
 {
@@ -14,8 +12,10 @@ class Test extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $szukaj = $request->input('szukaj');
+
         $obr = array('pic');
         $naz = array('nazwa');
         $wie = array('0');
@@ -23,18 +23,18 @@ class Test extends Controller
         if ($handle = opendir('./pic')) {
 
     /* This is the correct way to loop over the directory. */
-            while (false !== ($entry = readdir($handle))) {
-                if (($entry !== ".")&&($entry !== "..")){
-                    array_push($obr, "./pic/".$entry);
-                    array_push($naz, $entry);
-                    array_push($wie, filesize("./pic/".$entry));
-                    $ilosc++;
-                }
+        while (false !== ($entry = readdir($handle))) {
+            if (($entry !== ".")&&($entry !== "..")){
+                array_push($obr, "./pic/".$entry);
+                array_push($naz, $entry);
+                array_push($wie, filesize("./pic/".$entry));
+                $ilosc++;
             }
+        }
 
-    closedir($handle);
+        closedir($handle);
     }
-    return view('page',array('obr' =>$obr,'ilosc' =>$ilosc,'name' => $naz,'wielkosc' => $wie ));
+    return view('page',array('obr' =>$obr,'ilosc' =>$ilosc,'name' => $naz,'wielkosc' => $wie, 'query_string' => $szukaj ));
 }
 
     /**

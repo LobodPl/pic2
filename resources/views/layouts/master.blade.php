@@ -49,7 +49,7 @@
  </div> 
  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2"> 
  <form class="navbar-form navbar-left" role="search"> <div class="form-group"> 
- <input type="text" name="Szukaj" class="form-control" placeholder="Szukaj">
+ <input type="text" name="szukaj" class="form-control" placeholder="Szukaj" value="{{ $query_string }}">
   </div> 
   <button type="submit" class="btn btn-default">Ok</button> </form> </div> </div></nav>
 		   <br>
