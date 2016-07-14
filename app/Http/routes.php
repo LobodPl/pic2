@@ -14,4 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('test', 'test@index');
+Route::get('/test', 'test@index');
+Route::get('/crudtest/{id}', 'crudtest@show');
+Route::get('/crudtest', 'crudtest@index');
+Route::post('/crudtest', 'crudtest@create');
+Route::put('/crudtest/{id}', 'crudtest@update');
+Route::delete('/crudtest/{id}', 'crudtest@destroy');
+
