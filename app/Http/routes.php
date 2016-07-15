@@ -20,4 +20,9 @@ Route::get('/crudtest', 'crudtest@index');
 Route::post('/crudtest', 'crudtest@create');
 Route::put('/crudtest/{id}', 'crudtest@update');
 Route::delete('/crudtest/{id}', 'crudtest@destroy');
+Route::get('/resttest/{id}', 'resttest@show');
+Route::get('/resttest', 'resttest@index');
+Route::post('/resttest', 'resttest@create');
+Route::put('/resttest/{id}', 'restest@update');
+Route::delete('/resttest/{id}', 'resttest@destroy');
 
