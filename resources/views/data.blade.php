@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Index</title>
-
+        <meta name="csrf_token" content="{{ csrf_token() }}" />
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
         <style>
@@ -34,24 +34,75 @@
                 font-size: 21px;
             }
         </style>
-        <script src="./bower_components/jquery/dist/jquary.js"></script>
+        <script src="./bower_components/jquery/dist/jquery.js"></script>
     </head>
     <body>
+        <script>
+            $.delete = function(url, data, callback, type){
+                if ( $.isFunction(data) ){
+                    type = type || callback,
+                    callback = data,
+                    data = {}
+                }
+                return $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    beforeSend: function (xhr) {
+                        var token = $('meta[name="csrf_token"]').attr('content');
+
+                        if (token) {
+                           return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    success: setTimeout(function(){ location.reload(); }, 50),
+                    data: data,
+                    contentType: type
+                });
+            }
+        $.put = function(url, data, callback, type){
+                if ( $.isFunction(data) ){
+                    type = type || callback,
+                    callback = data,
+                    data = {}
+                }
+                return $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    beforeSend: function (xhr) {
+                        var token = $('meta[name="csrf_token"]').attr('content');
+
+                        if (token) {
+                           return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    success: setTimeout(function(){ location.reload(); }, 50),
+                    data: data,
+                    contentType: type
+                });
+            }
+            function del(id){
+                 $.delete('{{url("/crudtest/")}}/'+id,'', function(result){console.log(result);})
+             }
+            function put(id){
+                 $.put('{{url("/crudtest/")}}/'+id,{"name": $('input[name=up'+id+']').val()}, function(result){console.log(result);})
+             }
+        </script>
         <div class="container">
             <div class="content">
                 <div class="title">
                 <table border=1>
                     @foreach ($data as $data)
-                        <tr><td><a href='{{url("/crudtest/$data->id")}}'> <span class="pull-right"></span>{{$data->name}}</a></td><td>
-                        <form action='{{url("/crudtest/$data->id")}}' id='fid{{$data->id}}'> <input type="hidden" name="_method" value="DELETE"><button type="submit" class="btn btn-default">Usuń</button> </form> 
-
+                        <tr><td><a href='{{url("/crudtest/$data->id")}}'> <span class="pull-right">{{$data->name}}</a></td><td>
+                        <button onclick='del({{"$data->id"}})' class="btn btn-default">Usuń</button>
+                        </td><td>
+                        <input name='up{{"$data->id"}}'><button onclick='put({{"$data->id"}})' class="btn btn-default">Zmień</button>
                         </td></tr>
                     @endforeach
                     </table>
                     <form method="POST" action='{{url("/crudtest")}}'>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input name="name" type="text">
-                    <button type="submit" class="btn btn-default">Ok</button> </form>
+                    <button type="submit" class="btn btn-default">Dodaj</button> </form>
                 </div>
             </div>
         </div>

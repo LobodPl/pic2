@@ -56,7 +56,11 @@ class crudtest extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dane = $request->input('name');
+        $rep = Data::find($id);
+        $rep->name = $dane;
+        $rep->save();
+        return abort(204);
     }
 
     /**
@@ -67,6 +71,8 @@ class crudtest extends Controller
      */
     public function destroy($id)
     {
-        //
+        $del = Data::find($id);
+        $del->delete();
+        return abort(204);
     }
 }
