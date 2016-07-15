@@ -60,7 +60,8 @@ class resttest extends Controller
         $rep = Data::find($id);
         $rep->name = $dane;
         $rep->save();
-        return abort(204);
+        $data = Data::where('name', $dane)->first();
+        return $data;
     }
 
     /**

@@ -23,6 +23,6 @@ Route::delete('/crudtest/{id}', 'crudtest@destroy');
 Route::get('/resttest/{id}', 'resttest@show');
 Route::get('/resttest', 'resttest@index');
 Route::post('/resttest', 'resttest@create');
-Route::put('/resttest/{id}', 'restest@update');
+Route::put('/resttest/{id}', 'resttest@update');
 Route::delete('/resttest/{id}', 'resttest@destroy');
 
