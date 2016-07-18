@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 Route::get('/test', 'test@index');
 Route::get('/crudtest/{id}', 'crudtest@show');
-Route::get('/crudtest', 'crudtest@index');
 Route::post('/crudtest', 'crudtest@create');
 Route::put('/crudtest/{id}', 'crudtest@update');
 Route::delete('/crudtest/{id}', 'crudtest@destroy');
@@ -26,3 +25,19 @@ Route::post('/resttest', 'resttest@create');
 Route::put('/resttest/{id}', 'resttest@update');
 Route::delete('/resttest/{id}', 'resttest@destroy');
 
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/crudtest', [
+    'middleware' => 'auth',
+    'uses' => 'crudtest@index'
+]);
+Route::get('/password/change', [
+    'middleware' => 'auth',
+    'uses' => 'password@index'
+]);
+Route::post('/password/change', [
+    'middleware' => 'auth',
+    'uses' => 'password@change'
+]);

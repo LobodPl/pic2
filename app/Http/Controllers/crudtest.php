@@ -60,7 +60,7 @@ class crudtest extends Controller
         $rep = Data::find($id);
         $rep->name = $dane;
         $rep->save();
-        return abort(204);
+        return redirect()->action('crudtest@index');
     }
 
     /**
@@ -73,6 +73,6 @@ class crudtest extends Controller
     {
         $del = Data::find($id);
         $del->delete();
-        return abort(204);
+        return redirect()->action('crudtest@index');
     }
 }
